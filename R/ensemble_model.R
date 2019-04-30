@@ -15,6 +15,12 @@ ensemble_model <- function(data, gene_names) {
   
   ui <- .user_inputs()
   
+  if(ui$organism == 1) {
+    load("data/regulondb.RData")
+  } else {
+    load("data/ttrust.RData")
+  }
+  
   # message("Data checks...")
   # if (ui[[1]] == 1) {
   #   message("Data is RNA-seq. Computing log2.")
