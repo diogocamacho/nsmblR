@@ -56,9 +56,11 @@ ensemble_model <- function(data, gene_names) {
   message("Merge inference results...")
   mod <- merge_results(network_list = N)
   
-  message("Filter edges...")
-  fed <- edge_filtering(ensemble_df = mod)
+  message("Regulatory filtering...")
+  reg_mod <- regulatory_filtering(ensemble_df = mod, organism = ui$organism)
   
+  message("Filter edges...")
+  fed <- edge_filtering(ensemble_df = reg_mod)
   
   message("Edge voting...")
   tt <- edge_voting(ensemble_df = fed)
