@@ -64,7 +64,7 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
       corrr::stretch()
   } else if (method == 7) {
     message("Method: MutRank")
-    net <- netbenchmark::mutrank.wrap(data = t(D)) %>%
+    net <- netbenchmark::mutrank.wrap(data = t(data)) %>%
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch()
