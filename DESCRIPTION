@@ -16,7 +16,6 @@ Depends: R (>= 3.4.0),
   readr,
   tibble,
   votesys
-Imports: ggplot2
 Encoding: UTF-8
 LazyData: true
 Suggests: knitr,
