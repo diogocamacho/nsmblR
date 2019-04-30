@@ -1,7 +1,7 @@
 #' Regulon DB data
 #' Data on transcriptional regulators, small RNAs, regulatory interactions
-"regulondb"
+"regdb"
 
 #' TTRUST data
 #' Data on TF -> Gene interactions in human annotated by TTRUST
-"ttrust"
+"ttrust_data"
