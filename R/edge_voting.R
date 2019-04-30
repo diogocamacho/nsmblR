@@ -9,7 +9,7 @@
 #' 
 #' Note that the function will perform all of these voting procedures on the data.
 #' 
-#' @param ensemble_df A data frame with the outcomes of all inference methods, as defined in the \link{\code\{...}} function
+#' @param ensemble_df A data frame with the outcomes of all inference methods, as defined in the \link{\code{merge_results}} or in \link{\code{regulatory_filtering}} functions
 #' @return A data frame with the outcome of chosen voting method
 edge_voting <- function(ensemble_df) {
   
