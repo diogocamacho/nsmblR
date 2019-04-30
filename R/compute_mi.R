@@ -1,6 +1,6 @@
 #' Compute mutual information matrix
 #' 
-#' This function will use the `buid.mim` function in the `minte` package to compute the mutal information matrix in the gene space.
+#' This function will use the `buid.mim` function in the `minet` package to compute the mutal information matrix in the gene space.
 #' @param data  Data matrix. This is an NxM matrix, where genes are on the rows and samples on the columns
 #' @return Returns the mutual information matrix for the data.
 compute_mi <- function(data) {
