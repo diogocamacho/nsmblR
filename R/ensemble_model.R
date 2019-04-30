@@ -41,21 +41,13 @@ ensemble_model <- function(data, gene_names) {
   # }
   # message("")
   
-  # message("Loading transcriptional regulator data...")
-  # if (uid$organism == 1) {
-  #   
-  # } else if (uid$organism == 2) {
-  #   
-  # }
-  
   message("Processing data matrix...")
   D <- as.matrix(data)
   rownames(D) <- gene_names
   
   message("Calculating mutual information matrix (necessary for CLR, ARACNe, MRNET, and MRNETB)...")
   M <- compute_mi(D)
-  # rownames(M) <- gene_names
-  
+
   message("Inferring networks...")
   m <- seq(1, 7)
   N <- vector(mode = "list", length = length(m))
