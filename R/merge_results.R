@@ -2,7 +2,7 @@
 #' 
 #' This function binds all the results from the inference algorithms into a single tidy data frame.
 #' 
-#' @param network_list A list of inferred networks as defined in the \link{\code{infer_networks}} function.
+#' @param network_list A list of inferred networks as defined in the \link{\code{infer_network}} function.
 #' @return A data frame with all the results for the inference models used.
 merge_results <- function(network_list) {
   # order interactions
