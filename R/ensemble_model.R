@@ -13,7 +13,7 @@ ensemble_model <- function(data, gene_names) {
   message("---- Network Inference Ensemble Model ----")
   message("")
   
-  ui <- .user_inputs()
+  ui <- user_inputs()
   
   # message("Data checks...")
   # if (ui[[1]] == 1) {
