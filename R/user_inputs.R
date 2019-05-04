@@ -1,4 +1,4 @@
-.user_inputs <- function() {
+user_inputs <- function() {
   
   # organism
   message("Organism:")
