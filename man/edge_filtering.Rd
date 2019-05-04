@@ -7,7 +7,7 @@
 edge_filtering(ensemble_df)
 }
 \arguments{
-\item{ensemble_df}{An ensemble set of inference algorithms as defined in the \link{\code{merge_results}} function}
+\item{ensemble_df}{An ensemble set of inference algorithms as defined in the \code{\link{merge_results}} function}
 }
 \value{
 A filtered data frame with edges being quantified (1) or not (0) based on the quantiles for each of the methods.

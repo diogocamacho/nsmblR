@@ -7,7 +7,7 @@
 edge_voting(ensemble_df)
 }
 \arguments{
-\item{ensemble_df}{A data frame with the outcomes of all inference methods, as defined in the \link{\code{merge_results}} or in \link{\code{regulatory_filtering}} functions}
+\item{ensemble_df}{A data frame with the outcomes of all inference methods, as defined in the \code{\link{merge_results}} or in \code{\link{regulatory_filtering}} functions}
 }
 \value{
 A data frame with the outcome of chosen voting method

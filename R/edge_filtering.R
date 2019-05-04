@@ -2,7 +2,7 @@
 #' 
 #' This function performs a filtering of the inference results based on a quantile calculation of the results. This is currently hard-coded so that the function selects the top 10% edges in each of the inference algorithms.
 #' 
-#' @param ensemble_df An ensemble set of inference algorithms as defined in the \link{\code{merge_results}} function
+#' @param ensemble_df An ensemble set of inference algorithms as defined in the \code{\link{merge_results}} function
 #' @return A filtered data frame with edges being quantified (1) or not (0) based on the quantiles for each of the methods.
 edge_filtering <- function(ensemble_df) {
   

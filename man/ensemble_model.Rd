@@ -12,7 +12,7 @@ ensemble_model(data, gene_names)
 \item{gene_names}{Names for the genes in the data set in the same order as the expression data matrix.}
 }
 \value{
-Returns a ranked data frame in accordance to the \link{\code{consensus}} function.
+Returns a ranked data frame in accordance to the \code{\link{consensus}} function.
 }
 \description{
 This function will generate an ensemble gene regulatory network model based on different inference algorithms.

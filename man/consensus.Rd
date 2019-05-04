@@ -7,11 +7,11 @@
 consensus(vote_tally)
 }
 \arguments{
-\item{vote_tally}{Data frame of tallied votes as defined in the \link{\code{edge_voting}} function}
+\item{vote_tally}{Data frame of tallied votes as defined in the \code{\link{edge_voting}} function}
 }
 \value{
 A  data frame, filtered by super majority vote decision.
 }
 \description{
-Based on the tallied votes using the \link{\code{edge_voting}} function, it provides the final consensus network.
+Based on the tallied votes using the \code{\link{edge_voting}} function, it provides the final consensus network.
 }

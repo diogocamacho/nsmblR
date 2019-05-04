@@ -4,7 +4,7 @@
 #' 
 #' @param data Gene expression data. Matrix is NxM, with genes on the rows and samples on the column.
 #' @param gene_names Names for the genes in the data set in the same order as the expression data matrix.
-#' @return Returns a ranked data frame in accordance to the \link{\code{consensus}} function.
+#' @return Returns a ranked data frame in accordance to the \code{\link{consensus}} function.
 ensemble_model <- function(data, gene_names) {
 
   if (missing(data)) stop("Need data.")
@@ -13,7 +13,7 @@ ensemble_model <- function(data, gene_names) {
   message("---- Network Inference Ensemble Model ----")
   message("")
   
-  ui <- user_inputs()
+  ui <- nsmblR:::user_inputs()
   
   # message("Data checks...")
   # if (ui[[1]] == 1) {

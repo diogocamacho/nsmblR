@@ -7,11 +7,11 @@
 regulatory_filtering(ensemble_df, organism)
 }
 \arguments{
-\item{ensemble_df}{A data frame from \link{\code{merge_results}}}
+\item{ensemble_df}{A data frame from \code{\link{merge_results}}}
 }
 \value{
 A filtered data frame
 }
 \description{
-This function will filter the inference results to only those between transcriptional regulators and protein coding genes. It assumes that gene-gene interactions happen due to the effect of a transcriptinal regulator. This function should be run independent of the outcome of edge filtering done with the \link{\code{edge_filtering}} function.
+This function will filter the inference results to only those between transcriptional regulators and protein coding genes. It assumes that gene-gene interactions happen due to the effect of a transcriptinal regulator. This function should be run independent of the outcome of edge filtering done with the \code{\link{edge_filtering}} function.
 }
