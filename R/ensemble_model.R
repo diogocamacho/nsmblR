@@ -57,7 +57,7 @@ ensemble_model <- function(data, gene_names) {
   mod <- merge_results(network_list = N)
   
   message("Regulatory filtering...")
-  reg_mod <- regulatory_filtering(ensemble_df = mod, organism = ui$organism)
+  reg_mod <- regulatory_filtering(ensemble_df = mod, organism = ui$organism, gene_names = gene_names)
   
   # message("Filter edges...")
   # fed <- edge_filtering(ensemble_df = reg_mod)
