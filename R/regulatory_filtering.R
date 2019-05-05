@@ -13,11 +13,11 @@ regulatory_filtering <- function(ensemble_df, organism, gene_names) {
     regs <- union(regdb$tf_predictions$gene_symbol, regdb$srnas$gene_symbol)
   } else {
     # load("data/ttrust.RData")
-    regs <- ttrust_data$tf
+    regs <- unique(ttrust_data$tf)
   }
   
-  b1 <- gene_names[ensemble_df$x]
-  b2 <- gene_names[ensemble_df$y]
+  b1 <- gene_names[as.numeric(ensemble_df$x)]
+  b2 <- gene_names[as.numeric(ensemble_df$y)]
   
   a1 <- which(b1 %in% regs)
   a2 <- which(b2 %in% regs)
