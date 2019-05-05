@@ -22,9 +22,10 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
     net <- corrr::correlate(t(data), method = "spearman", quiet = TRUE) %>%
       corrr::shave(., upper = TRUE) %>% 
       corrr::stretch() %>%
-      dplyr::filter(., !is.na(r))%>%
+      # dplyr::filter(., !is.na(r))%>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y) %>% 
       tibble::add_column(., edge = 0) %>%
       dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
@@ -37,9 +38,10 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       corrr::as_cordf() %>%
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch()  %>%
-      dplyr::filter(., !is.na(r))%>%
+      # dplyr::filter(., !is.na(r))%>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
       dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
@@ -52,9 +54,10 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
     net <- corrr::as_cordf(Z) %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch()  %>%
-      dplyr::filter(., !is.na(r))%>%
+      # dplyr::filter(., !is.na(r))%>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
       dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
@@ -65,9 +68,10 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch() %>%
-      dplyr::filter(., !is.na(r)) %>%
+      # dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
       dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
@@ -78,9 +82,10 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch() %>%
-      dplyr::filter(., !is.na(r)) %>%
+      # dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
       dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
@@ -91,9 +96,10 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch() %>%
-      dplyr::filter(., !is.na(r)) %>%
+      # dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y)))) %>%
+      dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
       dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
@@ -103,9 +109,10 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch() %>%
-      dplyr::filter(., !is.na(r)) %>%
+      # dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
       dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
