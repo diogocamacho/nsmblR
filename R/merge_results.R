@@ -14,7 +14,7 @@ merge_results <- function(network_list) {
   colnames(bound_values) <- c("cor", "pcit", "clr", "aracne", "mrnet", "mrnetb", "mutrank", "vote_count")
 
   # write data frame
-  network_dataframe <- dplyr::select(ordered_list[[1]], x, y) %>%
+  network_dataframe <- dplyr::select(network_list[[1]], x, y) %>%
     dplyr::bind_cols(., bound_values) %>% 
     dplyr::filter(., vote_count != 0)
     
