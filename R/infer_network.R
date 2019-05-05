@@ -12,8 +12,7 @@
 #' @param method Integer defining the method to be used
 #' @param data Gene expression data frame or mutual information matrix
 #' @return An inferred network matrix
-infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
-                           data) {
+infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
   
   if (missing(data)) stop("Need data matrix.")
   
@@ -26,7 +25,9 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
       dplyr::filter(., !is.na(r))%>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
-      dplyr::arrange(., x, y)
+      dplyr::arrange(., x, y) %>% 
+      tibble::add_column(., edge = 0) %>%
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
   } else if (method == 2) {
     # PCIT
     message("Method: PCIT")
@@ -39,7 +40,9 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
       dplyr::filter(., !is.na(r))%>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
-      dplyr::arrange(., x, y) 
+      dplyr::arrange(., x, y)  %>% 
+      tibble::add_column(., edge = 0) %>%
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
   } else if (method == 3) {
     # CLR
     message("Method: CLR")
@@ -52,7 +55,9 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
       dplyr::filter(., !is.na(r))%>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
-      dplyr::arrange(., x, y) 
+      dplyr::arrange(., x, y)  %>% 
+      tibble::add_column(., edge = 0) %>%
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
   } else if (method == 4) {
     # ARACNE
     message("Method: ARACNe")
@@ -63,7 +68,9 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
       dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
-      dplyr::arrange(., x, y)
+      dplyr::arrange(., x, y)  %>% 
+      tibble::add_column(., edge = 0) %>%
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
   } else if (method == 5) {
     # MRNET
     message("Method: MRNET")
@@ -74,7 +81,9 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
       dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
-      dplyr::arrange(., x, y)
+      dplyr::arrange(., x, y)  %>% 
+      tibble::add_column(., edge = 0) %>%
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
   } else if (method == 6) {
     # MRNETB
     message("Method: MRNETB")
@@ -85,7 +94,9 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
       dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y)))) %>%
-      dplyr::arrange(., x, y)
+      dplyr::arrange(., x, y)  %>% 
+      tibble::add_column(., edge = 0) %>%
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
   } else if (method == 7) {
     message("Method: MutRank")
     net <- netbenchmark::mutrank.wrap(data = t(data)) %>%
@@ -95,7 +106,9 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
       dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
-      dplyr::arrange(., x, y)
+      dplyr::arrange(., x, y)  %>% 
+      tibble::add_column(., edge = 0) %>%
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
   } else {
     stop("Unknown method.")
   }
