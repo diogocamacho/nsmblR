@@ -9,10 +9,10 @@
 regulatory_filtering <- function(ensemble_df, organism, gene_names) {
   
   if(organism == 1) {
-    load("data/regulondb.RData")
+    # load("regulondb.RData")
     regs <- union(regdb$tf_predictions$gene_symbol, regdb$srnas$gene_symbol)
   } else {
-    load("data/ttrust.RData")
+    # load("data/ttrust.RData")
     regs <- ttrust_data$tf
   }
   
