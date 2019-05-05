@@ -6,14 +6,6 @@
 #' @return A filtered data frame with edges being quantified (1) or not (0) based on the quantiles for each of the methods.
 edge_filtering <- function(ensemble_df) {
   
-  # if (missing(edge_selection)) {
-  #   sel <- 1
-  #   thr <- 0.9
-  # } else {
-  #   sel <- edge_selection[[1]]
-  #   thr <- edge_selection[[2]]
-  # }
-  
   fdf <- ensemble_df %>% 
     dplyr::mutate(., cor = replace(cor, which(abs(cor) < quantile(cor, 0.9, na.rm = TRUE)), 0)) %>%
     dplyr::mutate(., clr = replace(clr, which(clr < quantile(clr, 0.9, na.rm = TRUE)), 0)) %>%

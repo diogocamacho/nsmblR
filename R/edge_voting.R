@@ -13,31 +13,31 @@
 #' @return A data frame with the outcome of chosen voting method
 edge_voting <- function(ensemble_df) {
   
-  voted_edges <- ensemble_df %>% 
-    dplyr::select(., -x, -y) %>% 
-    dplyr::mutate(., num_votes = apply(., 1, function(x) length(which(x != 0))))
+  # voted_edges <- ensemble_df %>% 
+  #   dplyr::select(., -x, -y) %>% 
+  #   dplyr::mutate(., num_votes = apply(., 1, function(x) length(which(x != 0))))
     
   # majority
-  maj <- voted_edges %>% 
-      dplyr::mutate(., majority = num_votes / 7) %>%
+  maj <- ensemble_df %>% 
+      dplyr::mutate(., majority = vote_count / 7) %>%
       dplyr::mutate(., majority = replace(majority, list = which(voted_edges$num_votes / 7 > 0.51), values = 1)) %>%
       dplyr::mutate(., majority = replace(majority, which(majority != 1), 0))
   
   # super majority
-  super_maj <- voted_edges %>% 
-      dplyr::mutate(., super_majority = num_votes / 7) %>%
+  super_maj <- ensemble_df %>% 
+      dplyr::mutate(., super_majority = vote_count / 7) %>%
       dplyr::mutate(., super_majority = replace(super_majority, list = which(voted_edges$num_votes / 7 > (2/3)), values = 1)) %>%
       dplyr::mutate(., super_majority = replace(super_majority, which(super_majority != 1), 0))
 
   # quorum vote
-  qvote <- voted_edges %>% 
-    dplyr::mutate(., quorum = num_votes) %>%
+  qvote <- ensemble_df %>% 
+    dplyr::mutate(., quorum = vote_count) %>%
       dplyr::mutate(., quorum = replace(quorum, list = which(voted_edges$num_votes < ceiling(7 / 2) + 1), values = 0)) %>%
       dplyr::mutate(., quorum = replace(quorum, which(quorum != 0), 1))
     
   # absolute majority  
-  abs_maj <- voted_edges %>% 
-    dplyr::mutate(., absolute_majority = num_votes) %>%
+  abs_maj <- ensemble_df %>% 
+      dplyr::mutate(., absolute_majority = vote_count) %>%
       dplyr::mutate(., absolute_majority = replace(absolute_majority, list = which(voted_edges$num_votes != 7), values = 0)) %>%
       dplyr::mutate(., absolute_majority = replace(absolute_majority, which(absolute_majority != 0), 1))
   

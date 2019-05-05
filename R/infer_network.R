@@ -20,9 +20,13 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
   if (method == 1) {
     # correlations
     message("Method: Spearman correlations")
-    net <- corrr::correlate(t(data), method = "spearman",quiet = TRUE) %>%
-      corrr::shave(upper = TRUE) %>% 
-      corrr::stretch()
+    net <- corrr::correlate(t(data), method = "spearman", quiet = TRUE) %>%
+      corrr::shave(., upper = TRUE) %>% 
+      corrr::stretch() %>%
+      dplyr::filter(., !is.na(r))%>%
+      dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
+      dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::arrange(., x, y)
   } else if (method == 2) {
     # PCIT
     message("Method: PCIT")
@@ -31,7 +35,11 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
     net <- netbenchmark::pcit.wrap(data = t(data)) %>%
       corrr::as_cordf() %>%
       corrr::shave(., upper = TRUE) %>%
-      corrr::stretch()  
+      corrr::stretch()  %>%
+      dplyr::filter(., !is.na(r))%>%
+      dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
+      dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::arrange(., x, y) 
   } else if (method == 3) {
     # CLR
     message("Method: CLR")
@@ -40,37 +48,56 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7),
     
     net <- corrr::as_cordf(Z) %>% 
       corrr::shave(., upper = TRUE) %>%
-      corrr::stretch()  
+      corrr::stretch()  %>%
+      dplyr::filter(., !is.na(r))%>%
+      dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
+      dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::arrange(., x, y) 
   } else if (method == 4) {
     # ARACNE
     message("Method: ARACNe")
     net <- minet::aracne(mim = data, eps = 0.1) %>%
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
-      corrr::stretch()
+      corrr::stretch() %>%
+      dplyr::filter(., !is.na(r)) %>%
+      dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
+      dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::arrange(., x, y)
   } else if (method == 5) {
     # MRNET
     message("Method: MRNET")
     net <- minet::mrnet(data) %>%
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
-      corrr::stretch()
+      corrr::stretch() %>%
+      dplyr::filter(., !is.na(r)) %>%
+      dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
+      dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::arrange(., x, y)
   } else if (method == 6) {
     # MRNETB
     message("Method: MRNETB")
     net <- minet::mrnetb(data) %>%
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
-      corrr::stretch()
+      corrr::stretch() %>%
+      dplyr::filter(., !is.na(r)) %>%
+      dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
+      dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y)))) %>%
+      dplyr::arrange(., x, y)
   } else if (method == 7) {
     message("Method: MutRank")
     net <- netbenchmark::mutrank.wrap(data = t(data)) %>%
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
-      corrr::stretch()
+      corrr::stretch() %>%
+      dplyr::filter(., !is.na(r)) %>%
+      dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
+      dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
+      dplyr::arrange(., x, y)
   } else {
     stop("Unknown method.")
   }
-  
   return(net)
 }

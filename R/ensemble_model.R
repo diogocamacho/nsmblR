@@ -37,7 +37,7 @@ ensemble_model <- function(data, gene_names) {
   
   message("Processing data matrix...")
   D <- as.matrix(data)
-  rownames(D) <- gene_names
+  rownames(D) <- NULL
   
   message("Calculating mutual information matrix (necessary for CLR, ARACNe, MRNET, and MRNETB)...")
   M <- compute_mi(D)
@@ -59,14 +59,18 @@ ensemble_model <- function(data, gene_names) {
   message("Regulatory filtering...")
   reg_mod <- regulatory_filtering(ensemble_df = mod, organism = ui$organism)
   
-  message("Filter edges...")
-  fed <- edge_filtering(ensemble_df = reg_mod)
+  # message("Filter edges...")
+  # fed <- edge_filtering(ensemble_df = reg_mod)
   
   message("Edge voting...")
-  tt <- edge_voting(ensemble_df = fed)
+  tt <- edge_voting(ensemble_df = reg_mod)
   
   message("Extracting consensus...")
   cnet <- consensus(vote_tally = tt)
+  
+  cnet <- cnet %>%
+    dplyr::mutate(., x = replace(x, values = gene_names[x])) %>%
+    dplyr::mutate(., y = replace(y, values = gene_names[y]))
   
   return(cnet)
 }
