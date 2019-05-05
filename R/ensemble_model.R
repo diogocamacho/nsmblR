@@ -8,32 +8,11 @@
 ensemble_model <- function(data, gene_names) {
 
   if (missing(data)) stop("Need data.")
-  # if (missing(method)) method <- seq(1, 6)
-  message("")
-  message("---- Network Inference Ensemble Model ----")
+
+    message("---- Network Inference Ensemble Model ----")
   message("")
   
   ui <- user_inputs()
-  
-  # message("Data checks...")
-  # if (ui[[1]] == 1) {
-  #   message("Data is RNA-seq. Computing log2.")
-  #   data <- log2(data)
-  #   x <- .data_cleanup(data)
-  #   data <- data[x, ]
-  #   gene_names <- gene_names[x]
-  # } else if (ui[[1]] == 2 & ui[[2]] == "N") {
-  #   message("Data is microarray and not log2.")
-  #   data <- log2(data)
-  #   x <- .data_cleanup(data)
-  #   data <- data[x, ]
-  #   gene_names <- gene_names[x]
-  # } else {
-  #   x <- .data_cleanup(data)
-  #   data <- data[x, ]
-  #   gene_names <- gene_names[x]
-  # }
-  # message("")
   
   message("Processing data matrix...")
   D <- as.matrix(data)
@@ -57,7 +36,9 @@ ensemble_model <- function(data, gene_names) {
   mod <- merge_results(network_list = N)
   
   message("Regulatory filtering...")
-  reg_mod <- regulatory_filtering(ensemble_df = mod, organism = ui$organism, gene_names = gene_names)
+  reg_mod <- regulatory_filtering(ensemble_df = mod, 
+                                  organism = ui$organism, 
+                                  gene_names = gene_names)
   
   # message("Filter edges...")
   # fed <- edge_filtering(ensemble_df = reg_mod)

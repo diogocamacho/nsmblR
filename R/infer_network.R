@@ -28,7 +28,8 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y) %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
+      dplyr::select(., x, y, edge)
   } else if (method == 2) {
     # PCIT
     message("Method: PCIT")
@@ -44,7 +45,8 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))  %>%
+      dplyr::select(., x, y, edge)
   } else if (method == 3) {
     # CLR
     message("Method: CLR")
@@ -60,7 +62,8 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
+      dplyr::select(., x, y, edge)
   } else if (method == 4) {
     # ARACNE
     message("Method: ARACNe")
@@ -74,7 +77,8 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
+      dplyr::select(., x, y, edge)
   } else if (method == 5) {
     # MRNET
     message("Method: MRNET")
@@ -88,7 +92,8 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
+      dplyr::select(., x, y, edge)
   } else if (method == 6) {
     # MRNETB
     message("Method: MRNETB")
@@ -102,7 +107,8 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
+      dplyr::select(., x, y, edge)
   } else if (method == 7) {
     message("Method: MutRank")
     net <- netbenchmark::mutrank.wrap(data = t(data)) %>%
@@ -115,7 +121,8 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
+      dplyr::select(., x, y, edge)
   } else {
     stop("Unknown method.")
   }
