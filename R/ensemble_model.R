@@ -9,7 +9,7 @@ ensemble_model <- function(data, gene_names) {
 
   if (missing(data)) stop("Need data.")
   # if (missing(method)) method <- seq(1, 6)
-  
+  message("")
   message("---- Network Inference Ensemble Model ----")
   message("")
   
@@ -69,8 +69,8 @@ ensemble_model <- function(data, gene_names) {
   cnet <- consensus(vote_tally = tt)
   
   cnet <- cnet %>%
-    dplyr::mutate(., x = replace(x, values = gene_names[x])) %>%
-    dplyr::mutate(., y = replace(y, values = gene_names[y]))
+    dplyr::mutate(., x = replace(x, values = gene_names[as.numeric(x)])) %>%
+    dplyr::mutate(., y = replace(y, values = gene_names[as.numeric(y)]))
   
   return(cnet)
 }
