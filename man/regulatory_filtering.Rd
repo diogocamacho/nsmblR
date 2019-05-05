@@ -4,10 +4,14 @@
 \alias{regulatory_filtering}
 \title{Regulators filtering}
 \usage{
-regulatory_filtering(ensemble_df, organism)
+regulatory_filtering(ensemble_df, organism, gene_names)
 }
 \arguments{
 \item{ensemble_df}{A data frame from \code{\link{merge_results}}}
+
+\item{organism}{Organism being analyzed (E. coli or Human)}
+
+\item{gene_names}{Set of gene names in the data set (ordered as in the expression data matrix)}
 }
 \value{
 A filtered data frame
