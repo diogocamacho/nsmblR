@@ -10,7 +10,7 @@ nsmblR is an algorithm that infers a consensus gene regulatory network based on 
  - [MRNETB](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3171353/)
  - [MutRank](https://www.ncbi.nlm.nih.gov/pubmed/19767600): Rank correlation inference
  
-Please follow the links above for the appropriate references and algorithm descriptions. After running all of the algorithms, the inferred results are filtered based on the quantile of the scores (default threshold set to 0.97) and the edges are tallied. Multiple voting schemes are provided and the final results account for edges that are present in more than 51% of the cases (4 algorithms out of 7.) For the Spearman correlation and partial correlation algorithms, an extra step is performed in which the correlation (or partial correlation) matrix is z-transformed and a Stoufer correction is performed on the resulting Z matrix.
+Please follow the links above for the appropriate references and algorithm descriptions. After running all of the algorithms, the inferred results are filtered based on the quantile of the scores (default threshold set to 0.97) and the edges are tallied. Multiple voting schemes are provided and the final results account for edges that are present in more than 51% of the cases (4 algorithms out of 7.) 
 
 ## Installation
 

@@ -22,10 +22,10 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
   if (method == 1) {
     message("Method: Spearman correlations")
     net <- corrr::correlate(t(data), method = "spearman", quiet = TRUE) 
-    net <- scale(abs(net[, -1]))
-    net <- (net + t(net)) / sqrt(2)
+    # net <- scale(abs(net[, -1]))
+    # net <- (net + t(net)) / sqrt(2)
     net <- net %>%
-      corrr::as_cordf() %>%
+      # corrr::as_cordf() %>%
       corrr::shave(., upper = TRUE) %>% 
       corrr::stretch() %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
@@ -37,8 +37,8 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
   } else if (method == 2) {
     message("Method: PCIT")
     net <- netbenchmark::pcit.wrap(data = t(data))
-    net <- scale(abs(net))
-    net <- (net + t(net)) / sqrt(2)
+    # net <- scale(abs(net))
+    # net <- (net + t(net)) / sqrt(2)
     net <- net %>%
       corrr::as_cordf() %>%
       corrr::shave(., upper = TRUE) %>%
