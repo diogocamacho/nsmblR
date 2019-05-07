@@ -14,5 +14,4 @@ A data frame with the outcome of chosen voting method
 }
 \description{
 Method to define ensemble method. Given a data frame containing inferred relationships between genes, the method will apply a defined voting method to define  a consensus network.
-Voting methods:
 }

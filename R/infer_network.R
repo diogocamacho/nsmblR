@@ -1,7 +1,8 @@
 #' Infer network
 #' 
-#' This function infers a gene expression network based on pre-defined methods. These are:
+#' This function infers a gene expression network based on pre-defined methods. 
 #' 
+#' @details Inference methods:
 #' \itemize{
 #'   \item{1}{Spearman correlations}
 #'   \item{2}{Partial correlations with information theory (PCIT)}

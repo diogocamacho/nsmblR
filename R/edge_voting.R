@@ -1,8 +1,8 @@
 #' Edge voting
 #' 
-#' Method to define ensemble method. Given a data frame containing inferred relationships between genes, the method will apply a defined voting method to define  a consensus network.
-#' Voting methods:
+#' Method to define ensemble method. Given a data frame containing inferred relationships between genes, the method will apply a defined voting method to define  a consensus network. 
 #' 
+#' @details Voting methods:
 #' \itemize{
 #'   \item{1}{Majority vote: edge is considered present if it is inferred in 51% of the cases}
 #'   \item{2}{Super majority vote: edge is considered present if it is inferred in 2/3 of the cases}

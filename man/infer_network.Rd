@@ -15,9 +15,10 @@ infer_network(method = c(1, 2, 3, 4, 5, 6, 7), data)
 An inferred network matrix
 }
 \description{
-This function infers a gene expression network based on pre-defined methods. These are:
+This function infers a gene expression network based on pre-defined methods.
 }
 \details{
+Inference methods:
 \itemize{
   \item{1}{Spearman correlations}
   \item{2}{Partial correlations with information theory (PCIT)}
