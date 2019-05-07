@@ -3,14 +3,14 @@
 #' This function infers a gene expression network based on pre-defined methods. 
 #' 
 #' @details Inference methods:
-#' \itemize{
-#'   \item{1}{Spearman correlations}
-#'   \item{2}{Partial correlations with information theory (PCIT)}
-#'   \item{3}{Context Likelihood of Relatedness (CLR)}
-#'   \item{4}{ARACNe}
-#'   \item{5}{MRNET}
-#'   \item{6}{MRNETB}
-#'   \item{7}{Mutual Rank (MutRank)}
+#' \enumerate{
+#'   \item Spearman correlations
+#'   \item Partial correlations with information theory (PCIT)
+#'   \item Context Likelihood of Relatedness (CLR)
+#'   \item ARACNe
+#'   \item MRNET
+#'   \item MRNETB
+#'   \item Mutual Rank (MutRank)
 #' }
 #' 
 #' @param method Integer defining the method to be used. Defaults to using CLR (method 3).

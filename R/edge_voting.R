@@ -1,16 +1,14 @@
 #' Edge voting
 #' 
-#' Method to define ensemble method. Given a data frame containing inferred relationships between genes, the method will apply a defined voting method to define  a consensus network. 
+#' Method to define ensemble method. Given a data frame containing inferred relationships between genes, the method will apply a defined voting method to define  a consensus network. Note that the function will perform all of these voting procedures on the data.
 #' 
 #' @details Voting methods:
-#' \itemize{
-#'   \item{1}{Majority vote: edge is considered present if it is inferred in 51% of the cases}
-#'   \item{2}{Super majority vote: edge is considered present if it is inferred in 2/3 of the cases}
-#'   \item{3}{Quorum vote: this method sits between between the majority vote and the supermajority. It is defined as \eqn{\frac{N}{2} + 1}, where N is the number of methods used}
-#'   \item{4}{Absolute majority vote: edge is present in \strong{all} of the methods only}
+#' \enumerate{
+#'   \item Majority vote: edge is considered present if it is inferred in 51% of the cases
+#'   \item Super majority vote: edge is considered present if it is inferred in 2/3 of the cases
+#'   \item Quorum vote: this method sits between between the majority vote and the supermajority. It is defined as \eqn{\frac{N}{2} + 1}, where N is the number of methods used
+#'   \item Absolute majority vote: edge is present in \strong{all} of the methods only
 #' }
-#' 
-#' Note that the function will perform all of these voting procedures on the data.
 #' 
 #' @param ensemble_df A data frame with the outcomes of all inference methods, as defined in the \code{\link{merge_results}} or in \code{\link{regulatory_filtering}} functions
 #' @return A data frame with the outcome of chosen voting method

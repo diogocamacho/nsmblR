@@ -13,5 +13,14 @@ edge_voting(ensemble_df)
 A data frame with the outcome of chosen voting method
 }
 \description{
-Method to define ensemble method. Given a data frame containing inferred relationships between genes, the method will apply a defined voting method to define  a consensus network.
+Method to define ensemble method. Given a data frame containing inferred relationships between genes, the method will apply a defined voting method to define  a consensus network. Note that the function will perform all of these voting procedures on the data.
+}
+\details{
+Voting methods:
+\enumerate{
+  \item Majority vote: edge is considered present if it is inferred in 51% of the cases
+  \item Super majority vote: edge is considered present if it is inferred in 2/3 of the cases
+  \item Quorum vote: this method sits between between the majority vote and the supermajority. It is defined as \eqn{\frac{N}{2} + 1}, where N is the number of methods used
+  \item Absolute majority vote: edge is present in \strong{all} of the methods only
+}
 }
