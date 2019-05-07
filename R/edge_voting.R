@@ -2,10 +2,13 @@
 #' 
 #' Method to define ensemble method. Given a data frame containing inferred relationships between genes, the method will apply a defined voting method to define  a consensus network.
 #' Voting methods:
-#' 1. Majority vote: edge is considered present if it is inferred in 51% of the cases
-#' 2. Super majority vote: edge is considered present if it is inferred in 2/3 of the cases.
-#' 3. Quorum vote: this method sits between between the majority vote and the supermajority. It is defined as N/2 + 1, where N is the number of methods used.
-#' 4. Absolute majority vote: edge is present in *all* of the methods only.
+#' 
+#' \describe{
+#'   \item{1}{Majority vote: edge is considered present if it is inferred in 51% of the cases}
+#'   \item{2}{Super majority vote: edge is considered present if it is inferred in 2/3 of the cases}
+#'   \item{3}{Quorum vote: this method sits between between the majority vote and the supermajority. It is defined as \eqn{\frac{N}{2} + 1}, where N is the number of methods used}
+#'   \item{4}{Absolute majority vote: edge is present in \strong{all} of the methods only}
+#' }
 #' 
 #' Note that the function will perform all of these voting procedures on the data.
 #' 
