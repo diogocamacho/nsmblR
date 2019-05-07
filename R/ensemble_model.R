@@ -40,9 +40,9 @@ ensemble_model <- function(data, gene_names) {
   N <- vector(mode = "list", length = length(m))
   for (i in m) {
     if (m[i] == 1 | m[i] == 2 | m[i] == 7) {
-      N[[i]] <- infer_network(method = m[i], data = D)
+      N[[i]] <- infer_network(method = m[i], data = D, quantile_thr = 0.9)
     } else if (m[i] == 3 | m[i] == 4 | m[i] == 5 | m[i] == 6) {
-      N[[i]] <- infer_network(method = m[i], data = M)
+      N[[i]] <- infer_network(method = m[i], data = M, quantile_thr = 0.9)
     }
   }
 
