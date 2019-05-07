@@ -21,11 +21,7 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
   
   if (method == 1) {
     message("Method: Spearman correlations")
-    net <- corrr::correlate(t(data), method = "spearman", quiet = TRUE) 
-    # net <- scale(abs(net[, -1]))
-    # net <- (net + t(net)) / sqrt(2)
-    net <- net %>%
-      # corrr::as_cordf() %>%
+    net <- corrr::correlate(t(data), method = "spearman", quiet = TRUE) %>%
       corrr::shave(., upper = TRUE) %>% 
       corrr::stretch() %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
@@ -36,10 +32,7 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
       dplyr::mutate(., edge = replace(edge, which(r >= quantile(x = r, probs = quantile_thr, na.rm = TRUE)), 1))
   } else if (method == 2) {
     message("Method: PCIT")
-    net <- netbenchmark::pcit.wrap(data = t(data))
-    # net <- scale(abs(net))
-    # net <- (net + t(net)) / sqrt(2)
-    net <- net %>%
+    net <- netbenchmark::pcit.wrap(data = t(data)) %>%
       corrr::as_cordf() %>%
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch()  %>%
@@ -51,10 +44,9 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
       dplyr::mutate(., edge = replace(edge, which(r >= quantile(x = r, probs = quantile_thr, na.rm = TRUE)), 1))
   } else if (method == 3) {
     message("Method: CLR")
-    net <- scale(data)
-    net <- (net + t(net)) / sqrt(2)
-    net <- net %>% 
-      corrr::as_cordf() %>% 
+    Z <- scale(data)
+    net <- (Z + t(Z)) / sqrt(2)
+    net <- corrr::as_cordf(net) %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch()  %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 

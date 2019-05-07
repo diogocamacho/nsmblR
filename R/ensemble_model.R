@@ -5,7 +5,7 @@
 #' @param data Gene expression data. Matrix is NxM, with genes on the rows and samples on the column.
 #' @param gene_names Names for the genes in the data set in the same order as the expression data matrix.
 #' @return Returns a list containing the inferred networks, the filtered networks (based on regulatory interactions) and a ranked data frame in accordance to the \code{\link{consensus}} function.
-ensemble_model <- function(data, gene_names) {
+ensemble_model <- function(data, gene_names, clean_data = FALSE) {
 
   if (missing(data)) stop("Need data.")
 
@@ -19,15 +19,17 @@ ensemble_model <- function(data, gene_names) {
   D <- as.matrix(data)
   rownames(D) <- NULL
   
-  cd <- data_cleanup(data = D)
-  
-  if (length(cd$nix_cols) != 0) {
-    D <- D[, -cd$nix_cols]
-  }
-  
-  if (length(cd$nix_rows) != 0) {
-    D <- D[-cd$nix_rows, ]
-    gene_names <- gene_names[-cd$nix_rows]
+  if (clean_data) {
+    cd <- data_cleanup(data = D)
+    
+    if (length(cd$nix_cols) != 0) {
+      D <- D[, -cd$nix_cols]
+    }
+    
+    if (length(cd$nix_rows) != 0) {
+      D <- D[-cd$nix_rows, ]
+      gene_names <- gene_names[-cd$nix_rows]
+    }
   }
   
   #####
