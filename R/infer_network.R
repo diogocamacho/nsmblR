@@ -9,120 +9,107 @@
 #' 6. MRNETB
 #' 7. Mutual Rank (MutRank)
 #' 
-#' @param method Integer defining the method to be used
+#' @param method Integer defining the method to be used. Defaults to using CLR (method 3).
 #' @param data Gene expression data frame or mutual information matrix
+#' @param quantile_thr Quantile based threshold to threshold inferred networks. Defaults to the top 3% set of edges.
 #' @return An inferred network matrix
-infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
+infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
   
+  if(missing(method)) method <- 3
   if (missing(data)) stop("Need data matrix.")
+  if (missing(quantile_thr)) quantile_thr <- 0.97
   
   if (method == 1) {
-    # correlations
     message("Method: Spearman correlations")
-    net <- corrr::correlate(t(data), method = "spearman", quiet = TRUE) %>%
+    net <- corrr::correlate(t(data), method = "spearman", quiet = TRUE) 
+    net <- scale(abs(net[, -1]))
+    net <- (net + t(net)) / sqrt(2)
+    net <- net %>%
       corrr::shave(., upper = TRUE) %>% 
       corrr::stretch() %>%
-      # dplyr::filter(., !is.na(r))%>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y) %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
-      dplyr::select(., x, y, edge)
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = quantile_thr, na.rm = TRUE)), 1))
   } else if (method == 2) {
-    # PCIT
     message("Method: PCIT")
-    # y2 <- as.matrix(data)
-    # rownames(y2) <- gene_ids
-    net <- netbenchmark::pcit.wrap(data = t(data)) %>%
+    net <- netbenchmark::pcit.wrap(data = t(data))
+    net <- scale(abs(net))
+    net <- (net + t(net)) / sqrt(2)
+    net <- net %>%
       corrr::as_cordf() %>%
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch()  %>%
-      # dplyr::filter(., !is.na(r))%>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
-      dplyr::arrange(., x, y)  %>% 
+      dplyr::arrange(., x, y) %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1))  %>%
-      dplyr::select(., x, y, edge)
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = quantile_thr, na.rm = TRUE)), 1))
   } else if (method == 3) {
-    # CLR
     message("Method: CLR")
-    Z <- scale(data)
-    Z <- (Z + t(Z)) / sqrt(2)
-    
-    net <- corrr::as_cordf(Z) %>% 
+    net <- scale(data)
+    net <- (net + t(net)) / sqrt(2)
+    net <- net %>% 
+      corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch()  %>%
-      # dplyr::filter(., !is.na(r))%>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
-      dplyr::arrange(., x, y)  %>% 
+      dplyr::arrange(., x, y) %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
-      dplyr::select(., x, y, edge)
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = quantile_thr, na.rm = TRUE)), 1))
   } else if (method == 4) {
-    # ARACNE
     message("Method: ARACNe")
     net <- minet::aracne(mim = data, eps = 0.1) %>%
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch() %>%
-      # dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
-      dplyr::select(., x, y, edge)
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = quantile_thr, na.rm = TRUE)), 1))
   } else if (method == 5) {
-    # MRNET
     message("Method: MRNET")
     net <- minet::mrnet(data) %>%
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch() %>%
-      # dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
-      dplyr::select(., x, y, edge)
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = quantile_thr, na.rm = TRUE)), 1))
   } else if (method == 6) {
-    # MRNETB
     message("Method: MRNETB")
     net <- minet::mrnetb(data) %>%
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch() %>%
-      # dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y)))) %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
-      dplyr::select(., x, y, edge)
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = quantile_thr, na.rm = TRUE)), 1))
   } else if (method == 7) {
     message("Method: MutRank")
     net <- netbenchmark::mutrank.wrap(data = t(data)) %>%
       corrr::as_cordf() %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch() %>%
-      # dplyr::filter(., !is.na(r)) %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
       dplyr::arrange(., x, y)  %>% 
       tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = 0.9, na.rm = TRUE)), 1)) %>%
-      dplyr::select(., x, y, edge)
+      dplyr::mutate(., edge = replace(edge, which(abs(r) > quantile(x = abs(r), probs = quantile_thr, na.rm = TRUE)), 1))
   } else {
     stop("Unknown method.")
   }

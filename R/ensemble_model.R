@@ -4,12 +4,12 @@
 #' 
 #' @param data Gene expression data. Matrix is NxM, with genes on the rows and samples on the column.
 #' @param gene_names Names for the genes in the data set in the same order as the expression data matrix.
-#' @return Returns a ranked data frame in accordance to the \code{\link{consensus}} function.
+#' @return Returns a list containing the inferred networks, the filtered networks (based on regulatory interactions) and a ranked data frame in accordance to the \code{\link{consensus}} function.
 ensemble_model <- function(data, gene_names) {
 
   if (missing(data)) stop("Need data.")
 
-    message("---- Network Inference Ensemble Model ----")
+  message("---- Network Inference Ensemble Model ----")
   message("")
   
   ui <- user_inputs()
@@ -53,5 +53,9 @@ ensemble_model <- function(data, gene_names) {
     dplyr::mutate(., x = replace(x, values = gene_names[as.numeric(x)])) %>%
     dplyr::mutate(., y = replace(y, values = gene_names[as.numeric(y)]))
   
-  return(cnet)
+  res <- list(inferred_networks = N,
+              filtered_networks = reg_mod,
+              consensus_network = cnet)
+  
+  return(res)
 }
