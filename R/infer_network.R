@@ -1,19 +1,21 @@
 #' Infer network
 #' 
 #' This function infers a gene expression network based on pre-defined methods. These are:
-#' 1. Spearman correlations
-#' 2. Partial correlations with information theory (PCIT)
-#' 3. Context Likelihood of Relatedness (CLR)
-#' 4. ARACNe
-#' 5. MRNET
-#' 6. MRNETB
-#' 7. Mutual Rank (MutRank)
+#' 
+#' \define{
+#' \item{1}{Spearman correlations}
+#' \item{2}{Partial correlations with information theory (PCIT)}
+#' \item{3}{Context Likelihood of Relatedness (CLR)}
+#' \item{4}{ARACNe}
+#' \item{5}{MRNET}
+#' \item{6}{MRNETB}
+#' \item{7}{Mutual Rank (MutRank)}
+#' }
 #' 
 #' @param method Integer defining the method to be used. Defaults to using CLR (method 3).
 #' @param data Gene expression data frame or mutual information matrix
-#' @param quantile_thr Quantile based threshold to threshold inferred networks. Defaults to the top 10% set of edges.
 #' @return An inferred network matrix
-infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
+infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
   
   if(missing(method)) method <- 3
   if (missing(data)) stop("Need data matrix.")
@@ -27,9 +29,7 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
-      dplyr::arrange(., x, y) %>% 
-      tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(r >= quantile(x = r, probs = quantile_thr, na.rm = TRUE)), 1))
+      dplyr::arrange(., x, y)
   } else if (method == 2) {
     message("Method: PCIT")
     net <- netbenchmark::pcit.wrap(data = t(data)) %>%
@@ -39,9 +39,7 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
-      dplyr::arrange(., x, y) %>% 
-      tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(r >= quantile(x = r, probs = quantile_thr, na.rm = TRUE)), 1))
+      dplyr::arrange(., x, y)
   } else if (method == 3) {
     message("Method: CLR")
     Z <- scale(data)
@@ -52,9 +50,7 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
-      dplyr::arrange(., x, y) %>% 
-      tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(r >= quantile(x = r, probs = quantile_thr, na.rm = TRUE)), 1))
+      dplyr::arrange(., x, y)
   } else if (method == 4) {
     message("Method: ARACNe")
     net <- minet::aracne(mim = data, eps = 0.1) %>%
@@ -64,9 +60,7 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
-      dplyr::arrange(., x, y)  %>% 
-      tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(r >= quantile(x = r, probs = quantile_thr, na.rm = TRUE)), 1))
+      dplyr::arrange(., x, y)
   } else if (method == 5) {
     message("Method: MRNET")
     net <- minet::mrnet(data) %>%
@@ -76,9 +70,7 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
-      dplyr::arrange(., x, y)  %>% 
-      tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(r >= quantile(x = r, probs = quantile_thr, na.rm = TRUE)), 1))
+      dplyr::arrange(., x, y)
   } else if (method == 6) {
     message("Method: MRNETB")
     net <- minet::mrnetb(data) %>%
@@ -88,9 +80,7 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y)))) %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
-      dplyr::arrange(., x, y)  %>% 
-      tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(r >= quantile(x = r, probs = quantile_thr, na.rm = TRUE)), 1))
+      dplyr::arrange(., x, y)
   } else if (method == 7) {
     message("Method: MutRank")
     net <- netbenchmark::mutrank.wrap(data = t(data)) %>%
@@ -100,9 +90,7 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
       dplyr::mutate(., y = replace(y, values = as.numeric(gsub("V", "", y))))  %>%
       dplyr::mutate(., r = replace(r, list = which(is.na(r)), values = 0)) %>% 
-      dplyr::arrange(., x, y)  %>% 
-      tibble::add_column(., edge = 0) %>%
-      dplyr::mutate(., edge = replace(edge, which(r >= quantile(x = r, probs = quantile_thr, na.rm = TRUE)), 1))
+      dplyr::arrange(., x, y)
   } else {
     stop("Unknown method.")
   }
