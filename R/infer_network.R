@@ -2,14 +2,14 @@
 #' 
 #' This function infers a gene expression network based on pre-defined methods. These are:
 #' 
-#' \define{
-#' \item{1}{Spearman correlations}
-#' \item{2}{Partial correlations with information theory (PCIT)}
-#' \item{3}{Context Likelihood of Relatedness (CLR)}
-#' \item{4}{ARACNe}
-#' \item{5}{MRNET}
-#' \item{6}{MRNETB}
-#' \item{7}{Mutual Rank (MutRank)}
+#' \itemize{
+#'   \item{1}{Spearman correlations}
+#'   \item{2}{Partial correlations with information theory (PCIT)}
+#'   \item{3}{Context Likelihood of Relatedness (CLR)}
+#'   \item{4}{ARACNe}
+#'   \item{5}{MRNET}
+#'   \item{6}{MRNETB}
+#'   \item{7}{Mutual Rank (MutRank)}
 #' }
 #' 
 #' @param method Integer defining the method to be used. Defaults to using CLR (method 3).
