@@ -4,7 +4,7 @@
 \alias{ensemble_model}
 \title{Ensemble model (wrapper for nsmblR)}
 \usage{
-ensemble_model(data, gene_names)
+ensemble_model(data, gene_names, clean_data = FALSE)
 }
 \arguments{
 \item{data}{Gene expression data. Matrix is NxM, with genes on the rows and samples on the column.}

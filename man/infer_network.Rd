@@ -4,25 +4,27 @@
 \alias{infer_network}
 \title{Infer network}
 \usage{
-infer_network(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr)
+infer_network(method = c(1, 2, 3, 4, 5, 6, 7), data)
 }
 \arguments{
 \item{method}{Integer defining the method to be used. Defaults to using CLR (method 3).}
 
 \item{data}{Gene expression data frame or mutual information matrix}
-
-\item{quantile_thr}{Quantile based threshold to threshold inferred networks. Defaults to the top 3% set of edges.}
 }
 \value{
 An inferred network matrix
 }
 \description{
 This function infers a gene expression network based on pre-defined methods. These are:
-1. Spearman correlations
-2. Partial correlations with information theory (PCIT)
-3. Context Likelihood of Relatedness (CLR)
-4. ARACNe
-5. MRNET
-6. MRNETB
-7. Mutual Rank (MutRank)
+}
+\details{
+\define{
+\item{1}{Spearman correlations}
+\item{2}{Partial correlations with information theory (PCIT)}
+\item{3}{Context Likelihood of Relatedness (CLR)}
+\item{4}{ARACNe}
+\item{5}{MRNET}
+\item{6}{MRNETB}
+\item{7}{Mutual Rank (MutRank)}
+}
 }

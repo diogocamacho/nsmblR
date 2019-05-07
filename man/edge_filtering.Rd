@@ -4,10 +4,12 @@
 \alias{edge_filtering}
 \title{Edge filtering}
 \usage{
-edge_filtering(ensemble_df)
+edge_filtering(inferred_network, quantile_thr)
 }
 \arguments{
-\item{ensemble_df}{An ensemble set of inference algorithms as defined in the \code{\link{merge_results}} function}
+\item{inferred_network}{An inferred networks as defined in the \code{\link{infer_network}} function}
+
+\item{quantile_thr}{Quantile based threshold to threshold inferred networks. Defaults to the top 10% set of edges.}
 }
 \value{
 A filtered data frame with edges being quantified (1) or not (0) based on the quantiles for each of the methods.
