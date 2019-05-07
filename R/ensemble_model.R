@@ -19,7 +19,7 @@ ensemble_model <- function(data, gene_names) {
   D <- as.matrix(data)
   rownames(D) <- NULL
   
-  cd <- data_cleanup(data = D, var_thr = 0.1)
+  cd <- data_cleanup(data = D)
   
   if (length(cd$nix_cols) != 0) {
     D <- D[, -cd$nix_cols]
@@ -40,9 +40,9 @@ ensemble_model <- function(data, gene_names) {
   N <- vector(mode = "list", length = length(m))
   for (i in m) {
     if (m[i] == 1 | m[i] == 2 | m[i] == 7) {
-      N[[i]] <- infer_network(method = m[i], data = D, quantile_thr = 0.9)
+      N[[i]] <- infer_network(method = m[i], data = D)
     } else if (m[i] == 3 | m[i] == 4 | m[i] == 5 | m[i] == 6) {
-      N[[i]] <- infer_network(method = m[i], data = M, quantile_thr = 0.9)
+      N[[i]] <- infer_network(method = m[i], data = M)
     }
   }
 
