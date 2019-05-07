@@ -25,6 +25,7 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
     net <- scale(abs(net[, -1]))
     net <- (net + t(net)) / sqrt(2)
     net <- net %>%
+      corrr::as_cordf() %>%
       corrr::shave(., upper = TRUE) %>% 
       corrr::stretch() %>%
       dplyr::mutate(., x = replace(x, values = as.numeric(gsub("V", "", x)))) %>% 
