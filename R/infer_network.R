@@ -19,7 +19,6 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data) {
   
   if(missing(method)) method <- 3
   if (missing(data)) stop("Need data matrix.")
-  if (missing(quantile_thr)) quantile_thr <- 0.9
   
   if (method == 1) {
     message("Method: Spearman correlations")
