@@ -38,33 +38,36 @@ ensemble_model <- function(data, gene_names, clean_data = FALSE) {
 
   #####
   message("Inferring networks...")
-  m <- seq(1, 7)
-  N <- vector(mode = "list", length = length(m))
-  for (i in m) {
-    if (m[i] == 1 | m[i] == 2 | m[i] == 7) {
-      N[[i]] <- infer_network(method = m[i], data = D)
-    } else if (m[i] == 3 | m[i] == 4 | m[i] == 5 | m[i] == 6) {
-      N[[i]] <- infer_network(method = m[i], data = M)
-    }
-  }
-
-  #####
-  message("Filtering edges...")
-  FN <- vector(mode = "list", length = length(m))
-  for (i in m) {
-    if (m[i] == 1 | m[i] == 2 | m[i] == 7) {
-      tmp <- N[[i]]
-      tmp$r <- abs(tmp$r)
-      FN[[i]] <- edge_filtering(inferred_network = tmp, quantile_thr = 0.95)
-    } else if (m[i] == 3 | m[i] == 4 | m[i] == 5 | m[i] == 6) {
-      FN[[i]] <- edge_filtering(inferred_network = N[[i]], quantile_thr = 0.95)
-    }
-  }
+  # m <- seq(1, 7)
+  # N <- vector(mode = "list", length = length(m))
+  # for (i in m) {
+  #   if (m[i] == 1 | m[i] == 2 | m[i] == 7) {
+  #     N[[i]] <- infer_network(method = m[i], data = D)
+  #   } else if (m[i] == 3 | m[i] == 4 | m[i] == 5 | m[i] == 6) {
+  #     N[[i]] <- infer_network(method = m[i], data = M)
+  #   }
+  # }
+  n1 <- clr_wrapper(data = M)
+  n2 <- aracne_wrapper(data = M)
+  n3 <- spearman_wrapper(data = D)
+  n4 <- pcit_wrapper(data = D)
+  n5 <- mrnet_wrapper(data = M)
+  n6 <- mrnetb_wrapper(data = M)
+  n7 <- mutrank_wrapper(data = D)
   
+  N <- list(clr = n1,
+            aracne = n2,
+            spearman_correlations = n3,
+            pcit = n4,
+            mrnet = n5,
+            mrnetb = n6,
+            mutrank = n7)
+
+
   
   #####
   message("Merge inference results...")
-  mod <- merge_results(network_list = FN)
+  mod <- merge_results(network_list = N)
   
   #####
   message("Regulatory filtering...")
