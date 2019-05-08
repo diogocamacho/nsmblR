@@ -49,8 +49,22 @@ ensemble_model <- function(data, gene_names, clean_data = FALSE) {
   }
 
   #####
+  message("Filtering edges...")
+  FN <- vector(mode = "list", length = length(m))
+  for (i in m) {
+    if (m[i] == 1 | m[i] == 2 | m[i] == 7) {
+      tmp <- N[[i]]
+      tmp$r <- abs(tmp$r)
+      FN[[i]] <- edge_filtering(inferred_network = tmp, quantile_thr = 0.95)
+    } else if (m[i] == 3 | m[i] == 4 | m[i] == 5 | m[i] == 6) {
+      FN[[i]] <- edge_filtering(inferred_network = N[[i]], quantile_thr = 0.95)
+    }
+  }
+  
+  
+  #####
   message("Merge inference results...")
-  mod <- merge_results(network_list = N)
+  mod <- merge_results(network_list = FN)
   
   #####
   message("Regulatory filtering...")
