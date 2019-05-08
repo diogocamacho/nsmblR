@@ -2,7 +2,7 @@
 #' 
 #' This function binds all the results from the inference algorithms into a single tidy data frame.
 #' 
-#' @param network_list A list of inferred networks as defined in the \code{\link{infer_network}} function.
+#' @param network_list A (named) list of inferred networks as defined in the \code{\link{inference_functions}}.
 #' @return A data frame with all the results for the inference models used.
 merge_results <- function(network_list) {
   
@@ -11,7 +11,8 @@ merge_results <- function(network_list) {
   
   # bind all values
   bound_values <- dplyr::bind_cols(ordered_values) %>% dplyr::mutate(tally = rowSums(.))
-  colnames(bound_values) <- c("cor", "pcit", "clr", "aracne", "mrnet", "mrnetb", "mutrank", "vote_count")
+  # colnames(bound_values) <- c("cor", "pcit", "clr", "aracne", "mrnet", "mrnetb", "mutrank", "vote_count")
+  colnames(bound_values) <- c(names(network_list), "vote_count")
 
   # write data frame
   network_dataframe <- dplyr::select(network_list[[1]], x, y) %>%
