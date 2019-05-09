@@ -4,12 +4,14 @@
 \alias{infer_network}
 \title{Infer network}
 \usage{
-infer_network(method = c(1, 2, 3, 4, 5, 6, 7), data)
+infer_network(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr)
 }
 \arguments{
 \item{method}{Integer defining the method to be used. Defaults to using CLR (method 3).}
 
 \item{data}{Gene expression data frame or mutual information matrix}
+
+\item{quantile_thr}{Quantile threshold for edge assignment (defaults to 0.95)}
 }
 \value{
 An inferred network matrix

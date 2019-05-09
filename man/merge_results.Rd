@@ -7,7 +7,7 @@
 merge_results(network_list)
 }
 \arguments{
-\item{network_list}{A list of inferred networks as defined in the \code{\link{infer_network}} function.}
+\item{network_list}{A (named) list of inferred networks as defined in the \code{\link{inference_functions}}.}
 }
 \value{
 A data frame with all the results for the inference models used.
