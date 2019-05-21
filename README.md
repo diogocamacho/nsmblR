@@ -58,3 +58,15 @@ which is a data frame with N edges and 6 columns, where the columns are the gene
 | Super majority (> 66% of votes)   | 31           |
 | Absolute majority (100% of votes) | 2            |
 | Quorum vote (N/2 + 1 votes)       | 31           |
+
+You can then use a package like `igraph` to display the edges inferred. In this example, we can look at the edges that pass the super-majority condition as such:
+
+```
+library(igraph)
+G <- graph_from_data_frame(N$consensus_network %>% dplyr::filter(., super_majority == 1), directed = FALSE)
+plot(G)
+```
+
+which will show the 31 edges that pass the super majority voting.
+
+**NOTE**: this is only an example. Even as such, with a set of genes and samples selected at random, we see the inference of a relationship between the lsrR regulator and the lsrG gene, which is to be expected, thereby giving some confidence about the approaches used for inference and the voting methods employed here. (see more at [EcoCyc](https://ecocyc.org/gene?orgid=ECOLI&id=G6805))
