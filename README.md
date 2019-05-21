@@ -25,7 +25,7 @@ The easiest way to run `nsmblR` is to use its wrapper `ensemble_model` as:
 
 ```
 library(nsmblR)
-res <- ensmeble_model(data, gene_names)
+res <- ensemble_model(data, gene_names)
 ```
 
 where `data` is a gene expression compendium (genes on rows, samples on columns) and `gene_names` are the gene symbols for the rows. Internally `nsmblR` will subset the final set of edges as those that are consistent across multiple inference methods that are also in the top 97% quantile of the edge score. For greater flexibility, look into the individual functions of the package to tailor the results to your specific problem.
