@@ -54,7 +54,7 @@ which is a data frame with N edges and 6 columns, where the columns are the gene
 
 | Method                            | Number edges |
 |:----------------------------------|:------------:|
-| Majority (> 51% of votes)         | 82           |
-| Super majority (> 66% of votes)   | 47           |
+| Majority (> 51% of votes)         | 53           |
+| Super majority (> 66% of votes)   | 31           |
 | Absolute majority (100% of votes) | 2            |
-| Quorum vote (N/2 + 1 votes)       | 47           |
+| Quorum vote (N/2 + 1 votes)       | 31           |
