@@ -70,8 +70,9 @@ infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
     
   } else if (method == 3) {
     message("Method: CLR")
-    Z <- scale(data)
-    net <- (Z + t(Z)) / sqrt(2)
+    Z1 <- scale(data)
+    Z2 <- scale(t(data))
+    net <- (Z1 + Z2) / sqrt(2)
     net <- corrr::as_cordf(net) %>% 
       corrr::shave(., upper = TRUE) %>%
       corrr::stretch()  %>%
