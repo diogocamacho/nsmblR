@@ -22,7 +22,7 @@ data_cleanup <- function(data, var_thr) {
   # to do that, eliminate the bottom 10% of genes in variance terms
   nix3 <- sort(apply(data, 1, var), index.return = TRUE)
   z <- ceiling(nrow(data) * var_thr)
-  nix3 <- nix3$ix[-seq(1, z)]
+  nix3 <- nix3$ix[seq(1, z)]
 
   # list them
   nix <- list(nix_cols = nix2,
