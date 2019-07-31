@@ -17,6 +17,22 @@
 #' @param data Gene expression data frame or mutual information matrix
 #' @param quantile_thr Quantile threshold for edge assignment (defaults to 0.95)
 #' @return An inferred network matrix
+#' 
+#' @examples 
+#' Run CLR algorithm:
+#' D <- nsmblR::data_matrix
+#' N <- infer_network(method = 3, data = D, quantile_thr = 0.95)
+#' 
+#' Run MutRank algorithm:
+#' D <- nsmblR::data_matrix
+#' N <- infer_network(method = 7, data = D, quantile_thr = 0.95)
+#' 
+#' Clean data and then run the ARACNE algorithm:
+#' D <- nsmblR::data_matrix
+#' cd <- data_cleanup(D)
+#' D <- D[-cd$nix_rows, ]
+#' genes <- nsmblR::genes[-cd$nix_rows, ]
+#' N <- infer_network(method = 4, data = D, quantile_thr = 0.8)
 infer_network <- function(method = c(1, 2, 3, 4, 5, 6, 7), data, quantile_thr) {
   
   if (missing(method)) method <- 3
