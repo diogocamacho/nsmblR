@@ -14,9 +14,10 @@
 ensemble_model <- function(data, gene_names, clean_data = FALSE, choose_organism = FALSE) {
 
   if (missing(data)) stop("Need data.")
+  if (missing(gene_names)) stop("Need gene names.")
 
-  message("---- Network Inference Ensemble Model ----")
   message("")
+  message("---- Network Inference Ensemble Model ----")
   
   if (choose_organism) {
     ui <- user_inputs()
@@ -27,22 +28,25 @@ ensemble_model <- function(data, gene_names, clean_data = FALSE, choose_organism
   
   
   #####
-  message("Processing data matrix...")
-  D <- as.matrix(data)
-  rownames(D) <- NULL
-  
-  if (clean_data) {
-    cd <- data_cleanup(data = D)
+  if(clean_data) {
+    message("Processing data matrix...")
+    D <- as.matrix(data)
+    rownames(D) <- NULL
     
-    if (length(cd$nix_cols) != 0) {
-      D <- D[, -cd$nix_cols]
-    }
-    
-    if (length(cd$nix_rows) != 0) {
-      D <- D[-cd$nix_rows, ]
-      gene_names <- gene_names[-cd$nix_rows]
-    }
+    if (clean_data) {
+      cd <- data_cleanup(data = D)
+      
+      if (length(cd$nix_cols) != 0) {
+        D <- D[, -cd$nix_cols]
+      }
+      
+      if (length(cd$nix_rows) != 0) {
+        D <- D[-cd$nix_rows, ]
+        gene_names <- gene_names[-cd$nix_rows]
+      }
+    }  
   }
+  
   
   #####
   message("Calculating mutual information matrix (necessary for CLR, ARACNe, MRNET, and MRNETB)...")
@@ -50,21 +54,24 @@ ensemble_model <- function(data, gene_names, clean_data = FALSE, choose_organism
 
   #####
   message("Inferring networks...")
-  # m <- seq(1, 7)
-  # N <- vector(mode = "list", length = length(m))
-  # for (i in m) {
-  #   if (m[i] == 1 | m[i] == 2 | m[i] == 7) {
-  #     N[[i]] <- infer_network(method = m[i], data = D)
-  #   } else if (m[i] == 3 | m[i] == 4 | m[i] == 5 | m[i] == 6) {
-  #     N[[i]] <- infer_network(method = m[i], data = M)
-  #   }
-  # }
+  
+  message("CLR network...")
   n1 <- clr_wrapper(data = M)
+  
+  message("ARACNe network...")
   n2 <- aracne_wrapper(data = M)
+  
+  message("Spearman correlations...")
   n3 <- spearman_wrapper(data = D)
+  
+  message("Partial correlations...")
   n4 <- pcit_wrapper(data = D)
+  
+  message("Relevance networks...")
   n5 <- mrnet_wrapper(data = M)
   n6 <- mrnetb_wrapper(data = M)
+  
+  message("Mutual Rank network...")
   n7 <- mutrank_wrapper(data = D)
   
   N <- list(clr = n1,

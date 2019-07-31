@@ -4,6 +4,9 @@
 #' 
 #' @param network_list A (named) list of inferred networks as defined in the \code{\link{inference_functions}}.
 #' @return A data frame with all the results for the inference models used.
+#' 
+#' @examples 
+#' merge_results(N)
 merge_results <- function(network_list) {
   
   # edge calls

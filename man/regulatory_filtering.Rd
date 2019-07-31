@@ -19,3 +19,6 @@ A filtered data frame
 \description{
 This function will filter the inference results to only those between transcriptional regulators and protein coding genes. It assumes that gene-gene interactions happen due to the effect of a transcriptinal regulator. This function should be run independent of the outcome of edge filtering done with the \code{\link{edge_filtering}} function.
 }
+\examples{
+regulatory_filtering(N, 1, nsmblR::genes)
+}

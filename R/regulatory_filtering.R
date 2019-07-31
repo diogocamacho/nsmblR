@@ -6,6 +6,9 @@
 #' @param organism Organism being analyzed (E. coli or Human)
 #' @param gene_names Set of gene names in the data set (ordered as in the expression data matrix)
 #' @return A filtered data frame 
+#' 
+#' @examples 
+#' regulatory_filtering(N, 1, nsmblR::genes)
 regulatory_filtering <- function(ensemble_df, organism, gene_names) {
   
   if(organism == 1) {

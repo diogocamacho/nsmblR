@@ -15,3 +15,6 @@ A data frame with all the results for the inference models used.
 \description{
 This function binds all the results from the inference algorithms into a single tidy data frame.
 }
+\examples{
+merge_results(N)
+}

@@ -12,6 +12,9 @@
 #' 
 #' @param ensemble_df A data frame with the outcomes of all inference methods, as defined in the \code{\link{merge_results}} or in \code{\link{regulatory_filtering}} functions
 #' @return A data frame with the outcome of chosen voting method
+#' 
+#' @examples 
+#' edge_voting(EDF)
 edge_voting <- function(ensemble_df) {
   
   # voted_edges <- ensemble_df %>% 

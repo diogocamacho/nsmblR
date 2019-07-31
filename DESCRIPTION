@@ -1,6 +1,6 @@
 Package: nsmblR
 Title: Network inference ensemble modeler
-Version: 1.8.0
+Version: 1.1.0
 Author@R: person("Diogo M.", "Camacho", email = "diogo.camacho@wyss.harvard.edu", role = c("aut", "cre"))
 Maintainer: Diogo M. Camacho <diogo.camacho@wyss.harvard.edu>
 Description: An algorithm to define an ensemble gene regulatory network from expression data using a variety of network inference tools and voting schemes.

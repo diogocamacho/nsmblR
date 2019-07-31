@@ -15,3 +15,7 @@ Returns the mutual information matrix for the data.
 \description{
 This function will use the `buid.mim` function in the `minet` package to compute the mutal information matrix in the gene space.
 }
+\examples{
+M <- nsmblR::data_matrix
+compute_mi(M)
+}

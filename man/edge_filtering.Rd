@@ -17,3 +17,6 @@ A filtered data frame with edges being quantified (1) or not (0) based on the qu
 \description{
 This function performs a filtering of the inference results based on a quantile calculation of the results. This is currently hard-coded so that the function selects the top 10% edges in each of the inference algorithms.
 }
+\examples{
+edge_filtering(N, 0.95)
+}

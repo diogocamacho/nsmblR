@@ -24,3 +24,6 @@ Voting methods:
   \item Absolute majority vote: edge is present in \strong{all} of the methods only
 }
 }
+\examples{
+edge_voting(EDF)
+}

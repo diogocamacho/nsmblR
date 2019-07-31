@@ -5,6 +5,9 @@
 #' @param inferred_network An inferred networks as defined in the \code{\link{infer_network}} function
 #' @param quantile_thr Quantile based threshold to threshold inferred networks. Defaults to the top 10% set of edges.
 #' @return A filtered data frame with edges being quantified (1) or not (0) based on the quantiles for each of the methods.
+#' 
+#' @examples 
+#' edge_filtering(N, 0.95)
 edge_filtering <- function(inferred_network, quantile_thr) {
   
   quants <- inferred_network %>%
