@@ -4,6 +4,8 @@
 #' 
 #' @param data Gene expression data. Matrix is NxM, with genes on the rows and samples on the column.
 #' @param gene_names Names for the genes in the data set in the same order as the expression data matrix.
+#' @param clean_data Flag for running \code{\link{data_cleanup}}. Defaults to FALSE.
+#' @param choose_organism Flag for running \code{\link{user_inputs}}. Defaults to FALSE, which implies E. coli as default organism.
 #' @return Returns a list containing the inferred networks, the filtered networks (based on regulatory interactions) and a ranked data frame in accordance to the \code{\link{consensus}} function.
 #' 
 #' @examples
