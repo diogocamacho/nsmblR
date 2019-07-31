@@ -18,16 +18,16 @@
 #' @param quantile_thr Quantile threshold for edge assignment (defaults to 0.95)
 #' @return An inferred network matrix
 #' 
-#' @example 
-#' Run CLR algorithm:
+#' @examples 
+#' # Run CLR algorithm:
 #' D <- nsmblR::data_matrix
 #' N <- infer_network(method = 3, data = D, quantile_thr = 0.95)
 #' 
-#' Run MutRank algorithm:
+#' # Run MutRank algorithm:
 #' D <- nsmblR::data_matrix
 #' N <- infer_network(method = 7, data = D, quantile_thr = 0.95)
 #' 
-#' Clean data and then run the ARACNE algorithm:
+#' # Clean data and then run the ARACNE algorithm:
 #' D <- nsmblR::data_matrix
 #' cd <- data_cleanup(D)
 #' D <- D[-cd$nix_rows, ]
