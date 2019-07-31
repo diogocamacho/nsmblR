@@ -17,3 +17,14 @@ A list with ids of columns and rows to be removed before continuing analyses.
 \description{
 Function to clean up the data. The function will eliminate genes with no measurements, genes of low variance, and columns that have no measurement.
 }
+\examples{
+Random data:
+set.seed(123)
+D <- replicate(expr = ceiling(runif(n = 100, min = 1, max = 1000)), n = 10, simplify = TRUE)
+cd <- data_cleanup(data = D)
+
+Example data provided:
+D <- nsmblR::data_matrix
+cd <- data_cleanup(data = D)
+
+}

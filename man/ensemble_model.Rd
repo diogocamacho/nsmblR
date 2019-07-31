@@ -4,16 +4,25 @@
 \alias{ensemble_model}
 \title{Ensemble model (wrapper for nsmblR)}
 \usage{
-ensemble_model(data, gene_names, clean_data = FALSE)
+ensemble_model(data, gene_names, clean_data = FALSE,
+  choose_organism = FALSE)
 }
 \arguments{
 \item{data}{Gene expression data. Matrix is NxM, with genes on the rows and samples on the column.}
 
 \item{gene_names}{Names for the genes in the data set in the same order as the expression data matrix.}
+
+\item{clean_data}{Flag for running \code{\link{data_cleanup}}. Defaults to FALSE.}
+
+\item{choose_organism}{Flag for running \code{\link{user_inputs}}. Defaults to FALSE, which implies E. coli as default organism.}
 }
 \value{
 Returns a list containing the inferred networks, the filtered networks (based on regulatory interactions) and a ranked data frame in accordance to the \code{\link{consensus}} function.
 }
 \description{
 This function will generate an ensemble gene regulatory network model based on different inference algorithms.
+}
+\examples{
+N <- ensemble_model(data = nsmblrR::data_matrix, gene_names = nsmblrR::genes)
+
 }
