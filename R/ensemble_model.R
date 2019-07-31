@@ -21,6 +21,7 @@ ensemble_model <- function(data, gene_names, clean_data = FALSE, choose_organism
   if (choose_organism) {
     ui <- user_inputs()
   } else {
+    ui <- list()
     ui$organism <- 1
   }
   
