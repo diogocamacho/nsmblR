@@ -6,7 +6,7 @@
 #' @param var_thr Percent variance of genes to be ignored. Eg, setting var_thr = 0.1 will remove the bottom 10% genes in terms of variance
 #' @return A list with ids of columns and rows to be removed before continuing analyses.
 #' 
-#' @examples 
+#' @example 
 #' Random data:
 #' set.seed(123)
 #' D <- replicate(expr = ceiling(runif(n = 100, min = 1, max = 1000)), n = 10, simplify = TRUE)

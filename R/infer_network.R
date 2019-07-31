@@ -18,7 +18,7 @@
 #' @param quantile_thr Quantile threshold for edge assignment (defaults to 0.95)
 #' @return An inferred network matrix
 #' 
-#' @examples 
+#' @example 
 #' Run CLR algorithm:
 #' D <- nsmblR::data_matrix
 #' N <- infer_network(method = 3, data = D, quantile_thr = 0.95)
