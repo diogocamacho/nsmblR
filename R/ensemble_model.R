@@ -64,23 +64,23 @@ ensemble_model <- function(data, gene_names, clean_data = FALSE, choose_organism
   message("Spearman correlations...")
   n3 <- spearman_wrapper(data = D)
   
-  message("Partial correlations...")
-  n4 <- pcit_wrapper(data = D)
+  # message("Partial correlations...")
+  # n4 <- pcit_wrapper(data = D)
   
   message("Relevance networks...")
   n5 <- mrnet_wrapper(data = M)
   n6 <- mrnetb_wrapper(data = M)
   
-  message("Mutual Rank network...")
-  n7 <- mutrank_wrapper(data = D)
+  # message("Mutual Rank network...")
+  # n7 <- mutrank_wrapper(data = D)
   
   N <- list(clr = n1,
             aracne = n2,
             spearman_correlations = n3,
-            pcit = n4,
+            # pcit = n4,
             mrnet = n5,
-            mrnetb = n6,
-            mutrank = n7)
+            mrnetb = n6)#,
+            # mutrank = n7)
 
 
   
