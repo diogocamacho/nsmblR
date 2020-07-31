@@ -23,26 +23,26 @@ edge_voting <- function(ensemble_df) {
     
   # majority
   maj <- ensemble_df %>% 
-      dplyr::mutate(., majority = vote_count / 7) %>%
+      dplyr::mutate(., majority = vote_count / 5) %>%
       dplyr::mutate(., majority = replace(majority, list = which(majority > 0.51), values = 1)) %>%
       dplyr::mutate(., majority = replace(majority, which(majority != 1), 0))
   
   # super majority
   super_maj <- ensemble_df %>% 
-      dplyr::mutate(., super_majority = vote_count / 7) %>%
+      dplyr::mutate(., super_majority = vote_count / 5) %>%
       dplyr::mutate(., super_majority = replace(super_majority, list = which(super_majority > (2/3)), values = 1)) %>%
       dplyr::mutate(., super_majority = replace(super_majority, which(super_majority != 1), 0))
 
   # quorum vote
   qvote <- ensemble_df %>% 
     dplyr::mutate(., quorum = vote_count) %>%
-      dplyr::mutate(., quorum = replace(quorum, list = which(quorum < ceiling(7 / 2) + 1), values = 0)) %>%
+      dplyr::mutate(., quorum = replace(quorum, list = which(quorum < ceiling(5 / 2) + 1), values = 0)) %>%
       dplyr::mutate(., quorum = replace(quorum, which(quorum != 0), 1))
     
   # absolute majority  
   abs_maj <- ensemble_df %>% 
       dplyr::mutate(., absolute_majority = vote_count) %>%
-      dplyr::mutate(., absolute_majority = replace(absolute_majority, list = which(absolute_majority != 7), values = 0)) %>%
+      dplyr::mutate(., absolute_majority = replace(absolute_majority, list = which(absolute_majority != 5), values = 0)) %>%
       dplyr::mutate(., absolute_majority = replace(absolute_majority, which(absolute_majority != 0), 1))
   
   # borda voting
